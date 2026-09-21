@@ -1,11 +1,144 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哈利波特魔法特展</title>
+    <style>
+        /* 網頁整體背景與字體設定 */
+        body {
+            background: linear-gradient(135deg, #0b132b, #1c2541, #3a506b); /* 神祕的深藍漸層背景 */
+            color: #e6e6ea; /* 柔和的亮灰色文字 */
+            font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            margin: 0;
+            padding: 40px;
+            line-height: 1.8;
+        }
+
+        /* 大標題加上發光特效 */
+        h1 {
+            text-align: center;
+            color: #f4d03f; /* 經典的魔法金 */
+            text-shadow: 0 0 15px rgba(244, 208, 63, 0.6);
+            font-size: 36px;
+            margin-bottom: 40px;
+        }
+
+        /* 圖片與文字並排的卡片設計 */
+        .card {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4); /* 半透明黑色底 */
+            border-left: 5px solid #f4d03f;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        /* 滑鼠移過去卡片會微微浮起 */
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* 讓偶數的卡片左右反轉，畫面更活潑 */
+        .card.reverse {
+            flex-direction: row-reverse;
+            border-left: none;
+            border-right: 5px solid #f4d03f;
+        }
+
+        /* 卡片內的圖片設定 */
+        .card img {
+            width: 250px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        }
+
+        /* 一般卡片的文字留白 */
+        .card .text-content {
+            margin-left: 30px;
+        }
+
+        /* 反轉卡片的文字留白 */
+        .card.reverse .text-content {
+            margin-left: 0;
+            margin-right: 30px;
+        }
+
+        /* 底部影片與地圖的並排容器 */
+        .media-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        iframe {
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+    </style>
 </head>
 <body>
-    
+
+    <h1>⚡️ 哈利波特與怪獸魔法特展探險 🪄</h1>
+
+    <!-- 第一個展區：開場與蛇怪 -->
+    <div class="card">
+        <img src="images/HP 6.jpg" alt="巨大的蛇怪骨骼">
+        <div class="text-content">
+            <h3>💀 神祕的魔法生物標本</h3>
+            <p>這週末我參觀了令人驚豔的「哈利波特與怪獸」魔法特展！🏰✨ 彷彿真的穿越到了 J.K.羅琳筆下的世界。首先映入眼簾的是各種神奇的生物骨骼，這具巨大的蛇類標本，讓人立刻聯想到神祕的蛇怪，氣勢非常驚人。</p>
+        </div>
+    </div>
+
+    <!-- 第二個展區：金蛋 (使用 reverse 類別讓圖片在右邊) -->
+    <div class="card reverse">
+        <img src="images/HP 2.jpg" alt="三巫鬥法大賽金蛋">
+        <div class="text-content">
+            <h3>🥚 耀眼奪目的三巫鬥法金蛋</h3>
+            <p>說到三巫鬥法大賽，現場竟然還展出了那顆耀眼奪目的「金蛋」！✨ 靜靜地立在展櫃中，看著它閃閃發光的精緻紋路，真想知道打開來是不是會發出刺耳的尖叫聲呢！😂</p>
+        </div>
+    </div>
+
+    <!-- 第三個展區：人魚 -->
+    <div class="card">
+        <img src="images/HP 3.jpg" alt="人魚彩繪玻璃">
+        <div class="text-content">
+            <h3>🧜‍♀️ 黑湖裡的人魚傳說</h3>
+            <p>一旁展示了乾燥的人魚標本，以及這面絕美的彩繪玻璃人魚畫像。精緻的玻璃工藝在燈光透射下，完美呈現了霍格華茲黑湖底下既神祕又帶著一點危險氣息的場景。💧</p>
+        </div>
+    </div>
+
+    <!-- 第四個展區：魔杖 (使用 reverse) -->
+    <div class="card reverse">
+        <img src="images/HP 4.jpg" alt="精美魔杖">
+        <div class="text-content">
+            <h3>🪵 獨一無二的巫師魔杖</h3>
+            <p>另一個大亮點絕對是魔杖區！🪄 這裡展示了含有獨角獸毛杖芯的精美魔杖，每一根的紋路、材質與設計都獨一無二。看著這些精湛的工藝，真想拿起來揮舞一下，大喊一聲「去去武器走」！🛡️💥</p>
+        </div>
+    </div>
+
+    <!-- 第五個展區：紐特皮箱 -->
+    <div class="card">
+        <img src="images/HP 7.jpg" alt="紐特斯卡曼德的服裝">
+        <div class="text-content">
+            <h3>🧳 奇獸飼育學家的皮箱</h3>
+            <p>展覽的後半段帶我們進入了《怪獸與牠們的產地》。🦡 現場展出了紐特·斯卡曼德那套標誌性的孔雀藍大衣與復古皮箱。標示牌寫著：「準備踏上一段神奇的探險之旅吧！」真想跳進那個施了無痕伸展咒的皮箱裡去照顧奇獸！🦒🌿</p>
+        </div>
+    </div>
+
+    <!-- 影片與地圖區 -->
+    <div class="media-container">
+        <!-- YouTube 影片 -->
+        <iframe width="315" height="560" src="https://www.youtube.com/embed/w_PXD02iiPc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        
+        <!-- Google 地圖 -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2475.228519159828!2d-0.42273188402434444!3d51.69131900767228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876412e84ea7c35%3A0xc39281a8f9024090!2sWarner%20Bros.%20Studio%20Tour%20London!5e0!3m2!1szh-TW!2stw!4v1689722614278!5m2!1szh-TW!2stw" width="600" height="560" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
 </body>
 </html>
