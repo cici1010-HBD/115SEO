@@ -5,140 +5,263 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>哈利波特魔法特展</title>
     <style>
-        /* 網頁整體背景與字體設定 */
+        /* 魔法星空漸層背景 */
         body {
-            background: linear-gradient(135deg, #0b132b, #1c2541, #3a506b); /* 神祕的深藍漸層背景 */
-            color: #e6e6ea; /* 柔和的亮灰色文字 */
+            background: linear-gradient(135deg, #090a0f, #1b2735, #243b55);
+            background-attachment: fixed;
+            color: #e6e6ea;
             font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
             margin: 0;
-            padding: 40px;
+            padding: 20px;
             line-height: 1.8;
         }
 
-        /* 大標題加上發光特效 */
+        /* 頂部發光標題 */
         h1 {
             text-align: center;
-            color: #f4d03f; /* 經典的魔法金 */
-            text-shadow: 0 0 15px rgba(244, 208, 63, 0.6);
-            font-size: 36px;
+            color: #f4d03f;
+            text-shadow: 0 0 20px rgba(244, 208, 63, 0.8), 0 0 30px rgba(244, 208, 63, 0.5);
+            font-size: 42px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        /* 分頁按鈕區域 */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
             margin-bottom: 40px;
         }
 
-        /* 圖片與文字並排的卡片設計 */
+        /* 分頁按鈕設計 */
+        .tab-button {
+            background: rgba(255, 255, 255, 0.05);
+            color: #f4d03f;
+            border: 2px solid #f4d03f;
+            border-radius: 30px;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .tab-button:hover {
+            background: rgba(244, 208, 63, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(244, 208, 63, 0.4);
+        }
+
+        /* 被選中的分頁按鈕 */
+        .tab-button.active {
+            background: #f4d03f;
+            color: #090a0f;
+            box-shadow: 0 0 20px rgba(244, 208, 63, 0.9);
+        }
+
+        /* 分頁內容區，預設隱藏 */
+        .tab-content {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeEffect 0.8s;
+        }
+
+        /* 淡入動畫 */
+        @keyframes fadeEffect {
+            from {opacity: 0; transform: translateY(15px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        /* 圖文卡片設計 */
         .card {
-            display: flex;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.4); /* 半透明黑色底 */
-            border-left: 5px solid #f4d03f;
-            border-radius: 12px;
-            padding: 25px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(244, 208, 63, 0.3);
+            border-radius: 15px;
+            padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
         }
 
-        /* 滑鼠移過去卡片會微微浮起 */
-        .card:hover {
-            transform: translateY(-5px);
+        /* 多圖並排 */
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
         }
 
-        /* 讓偶數的卡片左右反轉，畫面更活潑 */
-        .card.reverse {
-            flex-direction: row-reverse;
-            border-left: none;
-            border-right: 5px solid #f4d03f;
+        .image-gallery img {
+            height: 350px;
+            border-radius: 10px;
+            border: 2px solid #5a5a5a;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            object-fit: cover;
         }
 
-        /* 卡片內的圖片設定 */
-        .card img {
-            width: 250px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        .image-gallery img:hover {
+            transform: scale(1.05);
+            border-color: #f4d03f;
         }
 
-        /* 一般卡片的文字留白 */
-        .card .text-content {
-            margin-left: 30px;
+        .text-content h2 {
+            color: #f4d03f;
+            border-bottom: 2px dashed rgba(244, 208, 63, 0.5);
+            padding-bottom: 10px;
         }
 
-        /* 反轉卡片的文字留白 */
-        .card.reverse .text-content {
-            margin-left: 0;
-            margin-right: 30px;
+        .text-content p {
+            font-size: 18px;
+            letter-spacing: 1.5px;
+            text-align: justify;
         }
 
-        /* 底部影片與地圖的並排容器 */
+        /* 影音地圖容器 */
         .media-container {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-top: 50px;
             flex-wrap: wrap;
         }
 
         iframe {
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+           /* 頁尾版權宣告設計 */
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: 50px;
+            border-top: 1px dashed rgba(244, 208, 63, 0.4); /* 金色虛線分隔 */
+            color: #8c979a;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+        }
+        
+        footer span {
+            color: #f4d03f; /* 魔法金強調色 */
+        }
         }
     </style>
 </head>
 <body>
 
-    <h1>⚡️ 哈利波特與怪獸魔法特展探險 🪄</h1>
+    <h1>✨ 霍格華茲的召喚：哈利波特魔法特展 ✨</h1>
 
-    <!-- 第一個展區：開場與蛇怪 -->
-    <div class="card">
-        <img src="images/HP 6.jpg" alt="巨大的蛇怪骨骼">
-        <div class="text-content">
-            <h3>💀 神祕的魔法生物標本</h3>
-            <p>這週末我參觀了令人驚豔的「哈利波特與怪獸」魔法特展！🏰✨ 彷彿真的穿越到了 J.K.羅琳筆下的世界。首先映入眼簾的是各種神奇的生物骨骼，這具巨大的蛇類標本，讓人立刻聯想到神祕的蛇怪，氣勢非常驚人。</p>
+    <!-- 分頁按鈕 -->
+    <div class="tab-container">
+        <button class="tab-button active" onclick="openTab(event, 'tab1')">🔮 奇幻開場</button>
+        <button class="tab-button" onclick="openTab(event, 'tab2')">🧜‍♀️ 黑湖傳說</button>
+        <button class="tab-button" onclick="openTab(event, 'tab3')">🪄 巫師法寶</button>
+        <button class="tab-button" onclick="openTab(event, 'tab4')">🧳 奇獸產地</button>
+        <button class="tab-button" onclick="openTab(event, 'tab5')">🗺️ 魔法足跡</button>
+    </div>
+
+    <!-- 分頁 1：奇幻開場 -->
+    <div id="tab1" class="tab-content" style="display: block;">
+        <div class="card">
+            <div class="image-gallery">
+                <img src="images/HP 6.jpg" alt="巨大的蛇怪骨骼">
+            </div>
+            <div class="text-content">
+                <h2>💀 踏入魔法世界的瞬間！</h2>
+                <p>這真的是太不可思議了！！！🤯 一踏入展場，我彷彿真的收到了霍格華茲的入學信，瞬間穿越到 J.K.羅琳筆下的魔法世界！每一個角落、每一束燈光都充滿了令人屏息的驚奇與細節。😍</p>
+                <p>一開場迎接我們的，是各種超寫實的神奇魔法生物標本！當我親眼看到這具龐大到令人窒息的蛇類骨骼時，全身的雞皮疙瘩都起來了！🐍💀 那尖銳的獠牙和巨大的脊椎，讓人立刻聯想到潛伏在密室裡那隻致命的神祕蛇怪，氣勢超級驚人，真的超有臨場感！😱🔥</p>
+            </div>
         </div>
     </div>
 
-    <!-- 第二個展區：金蛋 (使用 reverse 類別讓圖片在右邊) -->
-    <div class="card reverse">
-        <img src="images/HP 2.jpg" alt="三巫鬥法大賽金蛋">
-        <div class="text-content">
-            <h3>🥚 耀眼奪目的三巫鬥法金蛋</h3>
-            <p>說到三巫鬥法大賽，現場竟然還展出了那顆耀眼奪目的「金蛋」！✨ 靜靜地立在展櫃中，看著它閃閃發光的精緻紋路，真想知道打開來是不是會發出刺耳的尖叫聲呢！😂</p>
+    <!-- 分頁 2：黑湖傳說 -->
+    <div id="tab2" class="tab-content">
+        <div class="card">
+            <div class="image-gallery">
+                <img src="images/HP 2.jpg" alt="三巫鬥法大賽金蛋">
+                <img src="images/HP 1.jpg" alt="人魚乾燥標本">
+                <img src="images/HP 3.jpg" alt="人魚彩繪玻璃">
+            </div>
+            <div class="text-content">
+                <h2>🥚 三巫鬥法大賽的極致考驗！</h2>
+                <p>天啊！居然能親眼看到傳說中的「金蛋」！🏆✨ 它就靜靜地立在展櫃中，閃耀著極其刺眼的金色光芒！看著上面那些精緻無比的雕刻紋路，我腦海中瘋狂浮現哈利在浴室裡打開它的畫面... 真想知道現場打開的話，是不是真的會發出那種超刺耳的恐怖尖叫聲呢？！🤣📢</p>
+                <p>旁邊則是黑湖深處的祕密——人魚展區！🧜‍♀️💧 這裡不但有超逼真、甚至帶點驚悚感的乾燥人魚標本，還有一面絕美的彩繪玻璃畫像！光線穿透玻璃折射出來的奇幻光影，完美還原了黑湖底下那種既神祕、美麗卻又暗藏致命危機的氛圍，實在是太美了！🌊✨</p>
+            </div>
         </div>
     </div>
 
-    <!-- 第三個展區：人魚 -->
-    <div class="card">
-        <img src="images/HP 3.jpg" alt="人魚彩繪玻璃">
-        <div class="text-content">
-            <h3>🧜‍♀️ 黑湖裡的人魚傳說</h3>
-            <p>一旁展示了乾燥的人魚標本，以及這面絕美的彩繪玻璃人魚畫像。精緻的玻璃工藝在燈光透射下，完美呈現了霍格華茲黑湖底下既神祕又帶著一點危險氣息的場景。💧</p>
+    <!-- 分頁 3：巫師法寶 -->
+    <div id="tab3" class="tab-content">
+        <div class="card">
+            <div class="image-gallery">
+                <img src="images/HP 4.jpg" alt="精美魔杖">
+                <img src="images/HP 5.jpg" alt="魔法手杖">
+            </div>
+            <div class="text-content">
+                <h2>🪵 挑選你的專屬魔杖吧！</h2>
+                <p>這裡是所有巫師的終極夢想之地——魔杖區！⚡️🪄 展櫃裡陳列著各式各樣、極具質感的精美魔杖！據說有些還含有獨角獸毛杖芯呢！🦄</p>
+                <p>每一根魔杖的木頭紋理、雕刻細節與握柄設計都完全不同，彷彿能感受到它們各自蘊含的強大魔力！看著看著，我的手都癢了，真的好想打破玻璃（開玩笑的🤫）把魔杖拿起來用力揮舞一下，大喊一聲「去去武器走！」🛡️💥 或者是「阿哇呾喀呾啦！」（威～不可以亂唸！🙅‍♀️😂）</p>
+            </div>
         </div>
     </div>
 
-    <!-- 第四個展區：魔杖 (使用 reverse) -->
-    <div class="card reverse">
-        <img src="images/HP 4.jpg" alt="精美魔杖">
-        <div class="text-content">
-            <h3>🪵 獨一無二的巫師魔杖</h3>
-            <p>另一個大亮點絕對是魔杖區！🪄 這裡展示了含有獨角獸毛杖芯的精美魔杖，每一根的紋路、材質與設計都獨一無二。看著這些精湛的工藝，真想拿起來揮舞一下，大喊一聲「去去武器走」！🛡️💥</p>
+    <!-- 分頁 4：奇獸產地 -->
+    <div id="tab4" class="tab-content">
+        <div class="card">
+            <div class="image-gallery">
+                <img src="images/HP 7.jpg" alt="紐特斯卡曼德的服裝">
+                <img src="images/HP 8.jpg" alt="紐特的捕蟲網與道具">
+            </div>
+            <div class="text-content">
+                <h2>🧳 跟著紐特一起去探險！</h2>
+                <p>展覽的最後帶我們跨越時代，進入了《怪獸與牠們的產地》的奇妙世界！🦡🌿 紐特·斯卡曼德（Newt Scamander）那套超有英倫風的標誌性孔雀藍大衣就在我眼前！🧥🤩 旁邊還放著那個看似平凡、實則裝滿了整個生態系的復古皮箱！</p>
+                <p>除了服裝，現場更展出了紐特用來捕捉與觀察奇獸的專屬道具，像是捕蟲網和各式各樣的神祕玻璃瓶！🦋🔍 看到標示牌上寫著：「準備踏上一段神奇的探險之旅吧！」我整個內心瘋狂尖叫，好想跟著紐特一起跳進那個施了無痕伸展咒的皮箱裡，去餵食木精和玻璃獸啊！！！🦒🪙</p>
+            </div>
         </div>
     </div>
 
-    <!-- 第五個展區：紐特皮箱 -->
-    <div class="card">
-        <img src="images/HP 7.jpg" alt="紐特斯卡曼德的服裝">
-        <div class="text-content">
-            <h3>🧳 奇獸飼育學家的皮箱</h3>
-            <p>展覽的後半段帶我們進入了《怪獸與牠們的產地》。🦡 現場展出了紐特·斯卡曼德那套標誌性的孔雀藍大衣與復古皮箱。標示牌寫著：「準備踏上一段神奇的探險之旅吧！」真想跳進那個施了無痕伸展咒的皮箱裡去照顧奇獸！🦒🌿</p>
+    <!-- 分頁 5：魔法足跡 (影音與地圖) -->
+    <div id="tab5" class="tab-content">
+        <div class="card">
+            <div class="text-content" style="text-align: center; margin-bottom: 30px;">
+                <h2>🗺️ 魔法世界的奇幻足跡</h2>
+                <p>一起來看看這場視覺饗宴的精采片段，並打卡標記英國倫敦的哈利波特片場吧！🇬🇧🚂</p>
+            </div>
+            <div class="media-container">
+                <!-- YouTube 影片 -->
+                <iframe width="315" height="560" src="https://www.youtube.com/embed/w_PXD02iiPc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                
+                <!-- Google 地圖 -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2475.228519159828!2d-0.42273188402434444!3d51.69131900767228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876412e84ea7c35%3A0xc39281a8f9024090!2sWarner%20Bros.%20Studio%20Tour%20London!5e0!3m2!1szh-TW!2stw!4v1689722614278!5m2!1szh-TW!2stw" width="500" height="560" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
     </div>
 
-    <!-- 影片與地圖區 -->
-    <div class="media-container">
-        <!-- YouTube 影片 -->
-        <iframe width="315" height="560" src="https://www.youtube.com/embed/w_PXD02iiPc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        
-        <!-- Google 地圖 -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2475.228519159828!2d-0.42273188402434444!3d51.69131900767228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876412e84ea7c35%3A0xc39281a8f9024090!2sWarner%20Bros.%20Studio%20Tour%20London!5e0!3m2!1szh-TW!2stw!4v1689722614278!5m2!1szh-TW!2stw" width="600" height="560" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-    </div>
+    <!-- JavaScript 用來控制分頁切換 -->
+    <script>
+        function openTab(evt, tabName) {
+            // 隱藏所有分頁內容
+            let tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            
+            // 移除所有按鈕的 active 狀態
+            let tablinks = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            // 顯示被點擊的分頁，並為按鈕加上 active 狀態
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+    <!-- 頁尾版權宣告 -->
+    <footer>
+        <p>版權所有 &copy; 2026 <span>哈利波特與怪獸魔法特展探險紀錄</span> ⚡️ <br>
+        本網頁僅供 115SEO 江若慈課程作業練習使用，圖片來源：個人拍攝。</p>
+    </footer>
 
 </body>
 </html>
